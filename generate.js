@@ -19,7 +19,7 @@ const BASE_COLORS = [
 function shadeColor([r, g, b], factor) {
   if (factor === 0) {
     // 0 contributions = very pale, almost white
-    const pale = 0.60;
+    const pale = 0.45;
     return `rgb(${Math.floor(r * pale + 255 * (1 - pale))},${Math.floor(g * pale + 255 * (1 - pale))},${Math.floor(b * pale + 255 * (1 - pale))})`;
   }
   // 1-9 contributions = light to deep dark
