@@ -1,24 +1,86 @@
 import fs from "fs";
 
-const WIDTH = 1200;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_USER   = "shambhavip19";
+const YEAR          = new Date().getFullYear();
+
+const WIDTH  = 1200;
 const HEIGHT = 620;
 const MONTHS = 12;
 const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const BASE_COLORS = [
-  [255, 160, 190], [255, 130, 130], [255, 210, 100],
-  [180, 140, 255], [130, 210, 255], [255, 180, 100],
+  [255, 160, 190], [255, 130, 130], [155, 210, 200],
+  [180, 140, 255], [130, 210, 255], [200, 180, 180],
   [150, 230, 170], [255, 160, 220], [160, 220, 255],
-  [255, 200, 130], [200, 160, 255], [130, 240, 200],
+  [110, 200, 230], [200, 160, 255], [130, 240, 200],
 ];
 
 function shadeColor([r, g, b], factor) {
-  const darken = 0.25 + factor * 0.75;
+  if (factor === 0) {
+    // 0 contributions = very pale, almost white
+    const pale = 0.60;
+    return `rgb(${Math.floor(r * pale + 255 * (1 - pale))},${Math.floor(g * pale + 255 * (1 - pale))},${Math.floor(b * pale + 255 * (1 - pale))})`;
+  }
+  // 1-9 contributions = light to deep dark
+  const darken = 0.3 + factor * 0.8;
   return `rgb(${Math.floor(r * darken)},${Math.floor(g * darken)},${Math.floor(b * darken)})`;
 }
 
-function genMonth(numDays) {
-  return Array.from({ length: numDays }, () => Math.floor(Math.random() * 10));
+// ── Fetch real GitHub contributions ──
+async function fetchContributions() {
+  const query = `{
+    user(login: "${GITHUB_USER}") {
+      contributionsCollection(
+        from: "${YEAR}-01-01T00:00:00Z",
+        to:   "${YEAR}-12-31T23:59:59Z"
+      ) {
+        contributionCalendar {
+          weeks {
+            contributionDays {
+              date
+              contributionCount
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  const res = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: {
+      "Authorization": `bearer ${GITHUB_TOKEN}`,
+      "Content-Type":  "application/json",
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const json = await res.json();
+  const weeks = json.data.user.contributionsCollection.contributionCalendar.weeks;
+
+  // Flatten all days: "YYYY-MM-DD" -> count
+  const dayMap = {};
+  for (const week of weeks) {
+    for (const day of week.contributionDays) {
+      dayMap[day.date] = day.contributionCount;
+    }
+  }
+
+  // Build 12 months of daily counts
+  const monthData = [];
+  for (let m = 0; m < 12; m++) {
+    const days = [];
+    for (let d = 1; d <= DAYS_IN_MONTH[m]; d++) {
+      const mm  = String(m + 1).padStart(2, "0");
+      const dd  = String(d).padStart(2, "0");
+      const key = `${YEAR}-${mm}-${dd}`;
+      days.push(dayMap[key] ?? 0);
+    }
+    monthData.push(days);
+  }
+
+  return monthData;
 }
 
 // Tulip shape
@@ -31,38 +93,25 @@ const tulipShape = [
   "111111",
 ];
 
-// Fixed pixel size for ALL flowers — same size tulip head always
-const PS      = 14;   // pixel size
+const PS      = 14;
 const GAP     = 2;
 const STEP    = PS + GAP;
 const ROWS    = tulipShape.length;
 const COLS_   = tulipShape[0].length;
-const HEAD_W  = COLS_ * STEP;   // 6*16 = 96px
-const HEAD_H  = ROWS  * STEP;   // 6*16 = 96px
+const HEAD_W  = COLS_ * STEP;  // 96px
+const HEAD_H  = ROWS  * STEP;  // 96px
 
-// Stem heights: tall vs short (only difference between big/small)
 const STEM_TALL  = 280;
 const STEM_SHORT = 140;
-const STEM_W     = 11;
+const STEM_W     = 9;
 
-// Spacing: CENTER all 12 flowers, no overlap
-// Each flower occupies HEAD_W px. We need gaps between them.
-// Total flowers width if packed = 12 * HEAD_W = 12*96 = 1152
-// Available = WIDTH - 2*margin = 1200 - 40 = 1160
-// So spacing per flower = floor(1160/12) = 96 — exactly fits with 1px gap each!
-// Let's use spacing = 98 to give 2px breathing room and center it
 const MARGIN  = 12;
-const SPACING = Math.floor((WIDTH - MARGIN * 2) / MONTHS); // = 98px
-// HEAD_W=96 < SPACING=98 → 2px gap between flowers ✓ NO OVERLAP
+const SPACING = Math.floor((WIDTH - MARGIN * 2) / MONTHS); // 98px — HEAD_W=96 fits ✓
 
 const GROUND_Y = 560;
 
 function drawFlower(cx, data, baseColor, tall) {
-  const stemH = tall ? STEM_TALL : STEM_SHORT;
-  // tulip head sits on top of stem
-  // stem top = GROUND_Y - stemH
-  // head bottom = stem top
-  // head top = stem top - HEAD_H
+  const stemH    = tall ? STEM_TALL : STEM_SHORT;
   const stemTop  = GROUND_Y - stemH;
   const headTopY = stemTop - HEAD_H;
 
@@ -72,25 +121,18 @@ function drawFlower(cx, data, baseColor, tall) {
   tulipShape.forEach((row, rowIdx) => {
     row.split("").forEach((cell, colIdx) => {
       if (cell === "1") {
-        const count     = data[dayIndex] || 0;
+        const count     = data[dayIndex] ?? 0;
         dayIndex++;
         const intensity = Math.min(count / 9, 1);
         const color     = shadeColor(baseColor, intensity);
-        svg += `<rect 
-          x="${cx + colIdx * STEP}" 
-          y="${headTopY + rowIdx * STEP}" 
-          width="${PS}" height="${PS}" rx="2"
-          fill="${color}" opacity="0.95"
-        />`;
+        svg += `<rect x="${cx + colIdx * STEP}" y="${headTopY + rowIdx * STEP}" width="${PS}" height="${PS}" rx="2" fill="${color}" opacity="0.95"/>`;
       }
     });
   });
 
-  // Stem
   const stemX = cx + Math.floor(HEAD_W / 2) - Math.floor(STEM_W / 2);
   svg += `<rect x="${stemX}" y="${stemTop}" width="${STEM_W}" height="${stemH}" rx="2" fill="#3a9a5c"/>`;
 
-  // Leaves — scale with stem height a little
   const leafSize = tall ? 1.4 : 1.0;
   const lx = stemX - Math.round(20 * leafSize);
   const ly = stemTop + Math.round(stemH * 0.35);
@@ -103,7 +145,6 @@ function drawFlower(cx, data, baseColor, tall) {
   return svg;
 }
 
-// Grass blades
 function drawGrassBlades(groundY) {
   let svg = "";
   for (let i = 0; i < 100; i++) {
@@ -115,7 +156,6 @@ function drawGrassBlades(groundY) {
   return svg;
 }
 
-// Clouds
 function drawCloud(cx, cy, scale = 1) {
   const s = scale;
   return `
@@ -125,8 +165,13 @@ function drawCloud(cx, cy, scale = 1) {
   `;
 }
 
-// ── BUILD SVG ──
-let svg = `<svg width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
+// ── MAIN ──
+async function main() {
+  console.log("🌷 Fetching contributions from GitHub...");
+  const monthData = await fetchContributions();
+  console.log("✅ Got data! Generating SVG...");
+
+  let svg = `<svg width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#3399de"/>
@@ -140,32 +185,28 @@ let svg = `<svg width="${WIDTH}" height="${HEIGHT}" xmlns="http://www.w3.org/200
   <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#skyGrad)"/>
 `;
 
-svg += drawCloud(200, 80, 1.0);
-svg += drawCloud(600, 60, 1.2);
-svg += drawCloud(950, 90, 0.9);
-svg += drawCloud(750, 90, 1.3);
-svg += drawCloud(400, 70, 0.9);
+  svg += drawCloud(200, 80, 1.0);
+  svg += drawCloud(600, 60, 1.2);
+  svg += drawCloud(950, 90, 0.9);
+  svg += drawCloud(750, 90, 1.3);
+  svg += drawCloud(400, 70, 0.9);
 
-svg += `<rect x="0" y="${GROUND_Y}" width="${WIDTH}" height="${HEIGHT - GROUND_Y}" fill="url(#groundGrad)"/>`;
-svg += drawGrassBlades(GROUND_Y);
+  svg += `<rect x="0" y="${GROUND_Y}" width="${WIDTH}" height="${HEIGHT - GROUND_Y}" fill="url(#groundGrad)"/>`;
+  svg += drawGrassBlades(GROUND_Y);
 
-// ── 12 month flowers — same head size, alternating tall/short stem ──
-for (let i = 0; i < MONTHS; i++) {
-  const numDays = DAYS_IN_MONTH[i];
-  const data    = genMonth(numDays);
-  const base    = BASE_COLORS[i % BASE_COLORS.length];
+  for (let i = 0; i < MONTHS; i++) {
+    const data = monthData[i];
+    const base = BASE_COLORS[i % BASE_COLORS.length];
+    const slotStart = MARGIN + i * SPACING;
+    const cx   = slotStart + Math.floor((SPACING - HEAD_W) / 2);
+    const tall = (i % 2 === 0);
+    svg += drawFlower(cx, data, base, tall);
+  }
 
-  // Center each flower within its SPACING slot
-  const slotStart = MARGIN + i * SPACING;
-  const cx        = slotStart + Math.floor((SPACING - HEAD_W) / 2);
+  svg += `</svg>`;
 
-  // Alternate tall/short — no size difference in head at all
-  const tall = (i % 2 === 0);
-
-  svg += drawFlower(cx, data, base, tall);
+  fs.writeFileSync("flower.svg", svg);
+  console.log("🌷 flower.svg generated with your real GitHub contributions!");
 }
 
-svg += `</svg>`;
-
-fs.writeFileSync("flower.svg", svg);
-console.log(`🌷 Done! HEAD_W=${HEAD_W}px SPACING=${SPACING}px gap=${SPACING - HEAD_W}px`);
+main().catch(console.error);
