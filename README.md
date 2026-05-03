@@ -1,4 +1,4 @@
-## 🌷 My Contribution Garden
+## 🌷 My Contribution Garden 🌷
 
 ![flowers](./flower.svg)
 <!--
