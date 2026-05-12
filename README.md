@@ -15,3 +15,10 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
+Hey there 👋, I'm Shambhavi 
+
+🎓 Student at VIT Chennai, 2nd year
+🤖 Interested in Machine Learning and AI
+🛠️ Skills: Python, Machine Learning, Scikit-learn, Pandas, NumPy, Git, GitHub
+📚 Currently learning and building projects
+✨ Exploring data, models, and real-world AI applications
