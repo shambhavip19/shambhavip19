@@ -46,16 +46,6 @@
 ---
 
 
-# GitHub Streak
-
-<div align="center">
-
-<img src="https://streak-stats.demolab.com?user=shambhavip19&theme=tokyonight&hide_border=true"/>
-
-</div>
-
----
-
 # Core Concepts
 
 <div align="center">
@@ -65,6 +55,16 @@
 <img src="https://img.shields.io/badge/DBMS-green?style=for-the-badge"/>
 <img src="https://img.shields.io/badge/Machine%20Learning-red?style=for-the-badge"/>
 <img src="https://img.shields.io/badge/NLP-purple?style=for-the-badge"/>
+
+</div>
+
+---
+
+# GitHub Streak
+
+<div align="center">
+
+<img src="https://streak-stats.demolab.com?user=shambhavip19&theme=tokyonight&hide_border=true"/>
 
 </div>
 
@@ -93,9 +93,6 @@
 </div>
 
 
-## 🌷 My Contribution Garden 🌷
-
-![Contributions](flower.svg)
 <!--
 **shambhavip19/shambhavip19** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
