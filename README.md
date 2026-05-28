@@ -1,3 +1,109 @@
+<div align="center">
+
+# 👋 Hi, I'm Shambhavi
+
+### 💻 AI/ML Enthusiast | Agentic AI Learner | Cybersecurity Explorer
+
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=00F7FF&center=true&vCenter=true&width=600&lines=AI%2FML+Explorer;Cybersecurity+Learner;Building+Cool+Projects;Always+Learning+New+Things" />
+
+</div>
+
+---
+
+# 🛠️ Tech Stack
+
+<div align="center">
+
+## 👩‍💻 Languages
+
+<img src="https://skillicons.dev/icons?i=python,c,cpp,java,javascript,html,css" />
+
+---
+
+## 📚 Libraries & Frameworks
+
+<img src="https://skillicons.dev/icons?i=tensorflow,pytorch" />
+
+<img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white"/>
+<img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"/>
+<img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white"/>
+<img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
+
+---
+
+## 🗄️ Databases
+
+<img src="https://skillicons.dev/icons?i=mysql,sqlite" />
+
+---
+
+## ⚙️ Tools & Platforms
+
+<img src="https://skillicons.dev/icons?i=git,github,vscode,linux" />
+
+</div>
+
+---
+
+# 📊 GitHub Stats
+
+<div align="center">
+
+<img width="49%" src="https://github-readme-stats.vercel.app/api?username=shambhavip19&show_icons=true&theme=tokyonight&hide_border=true"/>
+
+<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=shambhavip19&layout=compact&theme=tokyonight&hide_border=true"/>
+
+</div>
+
+---
+
+# 🔥 GitHub Streak
+
+<div align="center">
+
+<img src="https://streak-stats.demolab.com?user=shambhavip19&theme=tokyonight&hide_border=true"/>
+
+</div>
+
+---
+
+# 🧠 Core Concepts
+
+<div align="center">
+
+<img src="https://img.shields.io/badge/OOP-blue?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/DSA-orange?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/DBMS-green?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Machine%20Learning-red?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/NLP-purple?style=for-the-badge"/>
+
+</div>
+
+---
+
+# 🌐 Connect With Me
+
+<div align="center">
+
+<a href="https://github.com/shambhavup19">
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github"/>
+</a>
+
+<a href="https://linkedin.com/in/https://www.linkedin.com/in/shambhavi-pahade">
+<img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin"/>
+</a>
+
+</div>
+
+---
+
+<div align="center">
+
+### ⭐ Thanks for visiting my profile!
+
+</div>
+
+
 ## 🌷 My Contribution Garden 🌷
 
 ![Contributions](flower.svg)
