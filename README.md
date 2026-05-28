@@ -2,25 +2,25 @@
 
 # 👋 Hi, I'm Shambhavi
 
-### 💻 AI/ML Enthusiast | Agentic AI Learner | Cybersecurity Explorer
+### AI/ML Developer | Cybersecurity Enthusiast | Problem Solver
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=00F7FF&center=true&vCenter=true&width=600&lines=AI%2FML+Explorer;Cybersecurity+Learner;Building+Cool+Projects;Always+Learning+New+Things" />
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=00F7FF&center=true&vCenter=true&width=700&lines=Developing+AI%2FML+Projects;Experimenting+with+Agentic+AI;Exploring+Cybersecurity;Building+Cool+Projects" />
 
 </div>
 
 ---
 
-# 🛠️ Tech Stack
+# Tech Stack
 
 <div align="center">
 
-## 👩‍💻 Languages
+## Languages
 
 <img src="https://skillicons.dev/icons?i=python,c,cpp,java,javascript,html,css" />
 
 ---
 
-## 📚 Libraries & Frameworks
+## Libraries & Frameworks
 
 <img src="https://skillicons.dev/icons?i=tensorflow,pytorch" />
 
@@ -31,13 +31,13 @@
 
 ---
 
-## 🗄️ Databases
+## Databases
 
 <img src="https://skillicons.dev/icons?i=mysql,sqlite" />
 
 ---
 
-## ⚙️ Tools & Platforms
+## Tools & Platforms
 
 <img src="https://skillicons.dev/icons?i=git,github,vscode,linux" />
 
@@ -46,7 +46,7 @@
 ---
 
 
-# 🔥 GitHub Streak
+# GitHub Streak
 
 <div align="center">
 
@@ -56,7 +56,7 @@
 
 ---
 
-# 🧠 Core Concepts
+# Core Concepts
 
 <div align="center">
 
@@ -70,7 +70,7 @@
 
 ---
 
-# 🌐 Connect With Me
+# Connect With Me
 
 <div align="center">
 
