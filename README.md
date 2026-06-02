@@ -66,7 +66,6 @@
 
 <div align="center">
   <img height="180em" src="https://github-readme-stats.vercel.app/api?username=shambhavip19&show_icons=true&theme=tokyonight&count_private=true"/>
-  <img height="180em" src="https://streak-stats.demolab.com?user=shambhavip19&theme=tokyonight&hide_border=true&count_private=true"/>
 </div>
 ---
 
