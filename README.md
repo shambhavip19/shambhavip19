@@ -55,6 +55,8 @@
 <img src="https://img.shields.io/badge/DBMS-green?style=for-the-badge"/>
 <img src="https://img.shields.io/badge/Machine%20Learning-red?style=for-the-badge"/>
 <img src="https://img.shields.io/badge/NLP-purple?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Agentic AI-yellow?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/CyberSecurity-maroon?style=for-the-badge"/>
 
 </div>
 
